@@ -38,14 +38,14 @@ export const getCurrencyExchange = async ({
   amount: number | "";
 }): Promise<number> => {
   try {
-    const result = await fetch(`${BASE_URL}/pair/${baseCurrency}/${targetCurrency}/${amount}`)
-      .then((data) => data.json())
-      .then((result) => result.conversion_result);
-
-    return result;
+    if (+amount > 0) {
+      const result = await fetch(`${BASE_URL}/pair/${baseCurrency}/${targetCurrency}/${amount}`)
+        .then((data) => data.json())
+        .then((result) => result.conversion_result);
+      return result;
+    }
   } catch (error) {
     console.log(error);
-
-    return 0;
   }
+  return 0;
 };

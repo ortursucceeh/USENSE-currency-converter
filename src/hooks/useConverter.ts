@@ -6,12 +6,12 @@ export const useConverter = () => {
   const [baseCurrency, setBaseCurrency] = useState("USD");
   const [targetCurrency, setTargetCurrency] = useState("UAH");
   const [amount, setAmount] = useState<number | "">(1);
-  const [rate, setRate] = useState<number>();
+  const [rate, setRate] = useState<number>(0);
 
   useEffect(() => {
     const getCurrencyRate = async () => {
       const newRate = await getCurrencyExchange({ baseCurrency, targetCurrency, amount });
-      setRate(newRate);
+      setRate(+newRate.toFixed(2));
     };
 
     getCurrencyRate();
